@@ -46,7 +46,7 @@ Slug::Trigger - とりがー！
 
 =head1 DESCRIPTION
 
-とりがー。Class::Triggerでもいいのだけど、勢いで実装しちゃった。
+とりがー。Plack::Middleware::Hogeがあるから必要ないかなー
 
 =head1 METHOD
 
