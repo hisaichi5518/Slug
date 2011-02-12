@@ -74,6 +74,10 @@ sub create_response {
 sub render {
     my $self = shift;
     my $html = $self->view->render(@_);
+    my @code = $self->trigger->get_trigger_code('html_filter');
+    for my $code (@code) {
+        $html = $code->($self, $html);
+    }
     $html = Encode::encode($self->encoding, $html, $self->encode_fb);
     return $self->create_response(
         200,
