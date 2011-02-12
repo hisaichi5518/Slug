@@ -17,14 +17,17 @@ sub add_trigger {
 }
 sub call_trigger {
     my ($self, $name, @args) = @_;
-    $self->{_trigger}->{$name} = []
-        unless exists $self->{_trigger}->{$name};
-    my @codes = @{$self->{_trigger}->{$name}};
-    for my $code (@codes) {
+    my @code = $self->get_trigger_code($name);
+    for my $code (@code) {
         $code->($self, @args);
     }
 }
-
+sub get_trigger_code {
+    my ($self, $name) = @_;
+    $self->{_trigger}->{$name} = []
+        unless exists $self->{_trigger}->{$name};
+    @{$self->{_trigger}->{$name}};
+}
 1;
 __END__
 
@@ -52,6 +55,8 @@ Slug::Trigger - とりがー！
 =head2 add_trigger
 
 =head2 call_trigger
+
+=head2 get_trigger_code
 
 =head1 AUTHOR
 
