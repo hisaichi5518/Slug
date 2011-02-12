@@ -30,5 +30,8 @@ for my $i (0 .. 50) {
     is $t->{tests}->[$i], $i;
 }
 
+my $hoge = [sub{ 'hoge' },sub{ "hogehoge" }];
+$t->trigger->{_trigger}->{hoge} = $hoge;
+is_deeply [$t->trigger->get_trigger_code('hoge')], $hoge;
 
 done_testing;
