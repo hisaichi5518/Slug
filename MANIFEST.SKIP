@@ -10,8 +10,6 @@
 ^MakeMaker-\d
 \.gz$
 \.cvsignore
-^t/9\d_.*\.t
-^t/perlcritic
 ^tools/
 \.svn/
 ^[^/]+\.yaml$
@@ -19,3 +17,5 @@
 ^\.shipit$
 \.git
 nytprof/
+[^/]+\.out$
+[^/]+\.old
