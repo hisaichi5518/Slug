@@ -3,17 +3,16 @@ use strict;
 use warnings;
 
 use parent 'Slug';
-use MyApp::Web::Dispatcher;
-use Tiffany::Text::Xslate;
 use FindBin;
 
 sub startup {
     my ($self) = @_;
-    my $v = Tiffany::Text::Xslate->new({
+    $self->plugin("Web::View::Xslate" => {
         path => ["$FindBin::Bin/templates"],
     });
-    $self->view($v);
-    MyApp::Web::Dispatcher->dispatch($self);
+
+    my $r = $self->routes("RSimple");
+    $r->connect("/" => {controller => "Root", action => "index"});
 }
 
 1;

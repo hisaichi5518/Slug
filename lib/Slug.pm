@@ -28,6 +28,7 @@ sub to_app {
         my($env) = @_;
         $self->create_request($env);
         $self->startup;
+        $self->{routes}->dispatch if $self->{routes};
         $self->run_hook("after_build_response", $self, $self->response);
         return $self->response->finalize;
     };
@@ -71,6 +72,12 @@ sub create_response {
     my $self = shift;
     $self->{response} = $self->new_response(@_);
 }
+sub routes {
+    my ($self, $name, @args) = @_;
+    my $module = Plack::Util::load_class($name, "Slug::Route");
+    $self->{routes} = $module->new(@args);
+}
+
 sub render {
     my $self = shift;
     my $html = $self->view->render(@_);
