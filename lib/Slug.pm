@@ -28,7 +28,7 @@ sub to_app {
         my($env) = @_;
         $self->create_request($env);
         $self->startup;
-        $self->{routes}->dispatch if $self->{routes};
+        $self->{routes}->dispatch($self) if $self->{routes};
         $self->run_hook("after_build_response", $self, $self->response);
         return $self->response->finalize;
     };

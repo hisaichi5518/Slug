@@ -2,37 +2,27 @@ package Slug::Route::RSimple;
 use strict;
 use warnings;
 
-use Router::Simple;
+use parent "Router::Simple";
 use Plack::Util ();
-use Exporter::Lite;
-our @EXPORT = qw(connect submapper dispatch);
-
-{
-    my $rs = Router::Simple->new;
-    sub rs { $rs }
-}
-sub connect {
-    rs->connect(@_);
-}
-sub submapper {
-    rs->submapper(@_);
-}
 
 sub dispatch {
-    my ($class, $app) = @_;
-    my $req = $app->request;
-    if (my $args = rs->match($req->env)) {
-        $app->run_hook("after_dispatch", $app, $args);
+    my ($self, $c) = @_;
+    my $req = $c->request;
+    if (my $args = $self->match($req->env)) {
         $req->env->{'slug.routing_args'} = $args;
 
         my $action = $args->{action};
-        my $klass  = ref($app)."::Controller::$args->{controller}";
+        return $c->not_found unless $action;
+
+        my $klass = ref($c)."::Controller::$args->{controller}";
         Plack::Util::load_class($klass);
-        return $klass->$action($app, $args);
+        return $klass->$action($c, $args);
     }
     else {
-        return $app->not_found;
+        return $c->not_found;
     }
+    $c->run_hook("after_dispatch", $c);
+
 }
 
 1;
