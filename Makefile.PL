@@ -12,7 +12,6 @@ requires "Plack"  => 0.9943;
 requires "Encode";
 requires "parent" => 0.223;
 requires "Router::Simple" => 0.06;
-requires "Tiffany"        => 0.02;
 requires "Text::Xslate"   => 0.1056;
 
 test_requires 'Test::More' => 0.88;
