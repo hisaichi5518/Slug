@@ -58,5 +58,13 @@ sub check_env {
         [$c->req->env->{'slug.test_plugin'}]
     );
 }
+sub myapp_web_dispatcher {
+    my ($self, $c) = @_;
+    $c->create_response(
+        200,
+        [],
+        ["<html><head></head><body>ok!</body></html>"]
+    );
+}
 
 1;

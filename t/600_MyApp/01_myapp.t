@@ -31,5 +31,8 @@ is $mech->ct, 'text/html';
 $mech->title_is('hi!');
 $mech->content_contains('Hello Xslate World!');
 
-
+for my $i (1 .. 50) {
+    $mech->get_ok("/myapp_web_dispatcher$i");
+    $mech->content_contains('ok');
+}
 done_testing;

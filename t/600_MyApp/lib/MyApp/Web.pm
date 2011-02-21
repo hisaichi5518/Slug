@@ -5,6 +5,7 @@ use warnings;
 use parent 'Slug';
 
 use FindBin;
+use MyApp::Web::Dispatcher;
 
 sub startup {
     my ($self) = @_;
@@ -26,6 +27,8 @@ sub startup {
         controller => "Root", action => "check_env"});
     $r->connect("/view/xslate" => {
         controller => "ViewTest", action => "xslate"});
+
+    MyApp::Web::Dispatcher->routes($self, $r);
 }
 
 1;
