@@ -80,7 +80,7 @@ sub routes {
 
 sub render {
     my $self = shift;
-    my $html = $self->view->render(@_);
+    my $html = $self->view->(@_);
     my @code = $self->trigger->get_trigger_code('html_filter');
     for my $code (@code) {
         $html = $code->($self, $html);

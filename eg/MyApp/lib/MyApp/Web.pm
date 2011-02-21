@@ -3,13 +3,12 @@ use strict;
 use warnings;
 
 use parent 'Slug';
-use Tiffany::Text::Xslate;
 
 sub startup {
     my ($self) = @_;
-    $self->view(Tiffany::Text::Xslate->new({
+    $self->plugin("Web::View::Xslate" => {
         path => ["./templates"],
-    }));
+    });
 
     my $r = $self->routes("RSimple");
     $r->connect("/" => {controller => "Root", action => "index"});
