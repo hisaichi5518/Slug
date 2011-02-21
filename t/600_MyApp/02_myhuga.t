@@ -1,9 +1,11 @@
 use strict;
 use warnings;
+use Test::Requires qw/Tiffany/;
 use Test::More;
 
 use FindBin;
 use lib "$FindBin::Bin/lib";
+
 
 use Test::WWW::Mechanize::PSGI;
 use MyHuga::Web;

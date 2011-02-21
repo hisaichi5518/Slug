@@ -14,8 +14,10 @@ requires "parent" => 0.223;
 requires "Router::Simple" => 0.06;
 requires "Text::Xslate"   => 0.1056;
 
+test_requires 'FindBin';
 test_requires 'Test::More' => 0.88;
 test_requires 'Test::WWW::Mechanize::PSGI';
+test_requires 'Test::Requires';
 
 tests 't/*.t t/*/*.t t/*/*/*.t';
 author_tests 'xt';

@@ -3,6 +3,7 @@ eg/MyApp/lib/MyApp/Web.pm
 eg/MyApp/lib/MyApp/Web/Controller/Root.pm
 eg/MyApp/myapp.psgi
 eg/MyApp/templates/index.tx
+inc/FindBin.pm
 inc/Module/Install.pm
 inc/Module/Install/AuthorTests.pm
 inc/Module/Install/Base.pm
@@ -14,8 +15,10 @@ inc/Module/Install/Metadata.pm
 inc/Module/Install/Win32.pm
 inc/Module/Install/WriteAll.pm
 inc/Test/More.pm
+inc/Test/Requires.pm
 inc/Test/WWW/Mechanize/PSGI.pm
 lib/Slug.pm
+lib/Slug/Plugin/Web/View/Tiffany.pm
 lib/Slug/Plugin/Web/View/Xslate.pm
 lib/Slug/Request.pm
 lib/Slug/Response.pm
@@ -38,10 +41,13 @@ t/500_Slug/00_compile.t
 t/500_Slug/01_slug.t
 t/600_MyApp/00_compile.t
 t/600_MyApp/01_myapp.t
+t/600_MyApp/02_myhuga.t
 t/600_MyApp/lib/MyApp/Web.pm
 t/600_MyApp/lib/MyApp/Web/Controller/Root.pm
 t/600_MyApp/lib/MyApp/Web/Controller/ViewTest.pm
 t/600_MyApp/lib/MyApp/Web/Dispatcher.pm
+t/600_MyApp/lib/MyHuga/Web.pm
+t/600_MyApp/lib/MyHuga/Web/Controller/ViewTest.pm
 t/600_MyApp/lib/Slug/Plugin/Test.pm
 t/600_MyApp/templates/index.tx
 t/perlcriticrc
