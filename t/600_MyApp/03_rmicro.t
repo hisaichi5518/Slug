@@ -22,14 +22,6 @@ $mech->content_contains('hoge!');
 
 $mech->get('/404');
 ok !$mech->success;
-$mech->get_ok('/change_status1');
-$mech->get_ok('/change_status2');
-$mech->get_ok('/change_status3');
-
-$mech->get_ok('/view/xslate');
-is $mech->ct, 'text/html';
-$mech->title_is('hi!');
-$mech->content_contains('Hello Xslate World!');
 
 for my $i (1 .. 50) {
     $mech->get_ok("/myapp_web_dispatcher$i");
