@@ -53,9 +53,9 @@ sub change_status3 {
 sub check_env {
     my ($self, $c) = @_;
     $c->create_response(
-        200,
+        ($c->req->env->{'slug.test_plugin'} ? 200 : 404),
         [],
-        [$c->req->env->{'slug.test_plugin'}]
+        ["ok"]
     );
 }
 sub myapp_web_dispatcher {
