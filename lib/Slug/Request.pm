@@ -64,8 +64,6 @@ hisaichi5518 E<lt>info[at]moe-project.comE<gt>
 
 =head1 SEE ALSO
 
-
-
 =head1 LICENSE
 
 This library is free software; you can redistribute it and/or modify

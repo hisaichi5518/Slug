@@ -23,6 +23,7 @@ sub mk_accessors {
 
 1;
 __END__
+
 =encoding utf8
 
 =head1 NAME
@@ -38,7 +39,7 @@ Slug::Util::Accessor - Accessor
     res_200 => sub { shift->new_response(200) },
     str     => "string!",
   };
-
+  
   sub starup {
     my $self = shift;
     $self->res_200;
