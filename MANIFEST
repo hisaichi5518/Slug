@@ -22,6 +22,7 @@ lib/Slug/Plugin/Web/View/Tiffany.pm
 lib/Slug/Plugin/Web/View/Xslate.pm
 lib/Slug/Request.pm
 lib/Slug/Response.pm
+lib/Slug/Route/RMicro.pm
 lib/Slug/Route/RSimple.pm
 lib/Slug/Trigger.pm
 lib/Slug/Util/Accessor.pm
@@ -42,12 +43,17 @@ t/500_Slug/01_slug.t
 t/600_MyApp/00_compile.t
 t/600_MyApp/01_myapp.t
 t/600_MyApp/02_myhuga.t
+t/600_MyApp/03_rmicro.t
 t/600_MyApp/lib/MyApp/Web.pm
 t/600_MyApp/lib/MyApp/Web/Controller/Root.pm
 t/600_MyApp/lib/MyApp/Web/Controller/ViewTest.pm
 t/600_MyApp/lib/MyApp/Web/Dispatcher.pm
 t/600_MyApp/lib/MyHuga/Web.pm
 t/600_MyApp/lib/MyHuga/Web/Controller/ViewTest.pm
+t/600_MyApp/lib/MyRMicro/Web.pm
+t/600_MyApp/lib/MyRMicro/Web/Controller/Root.pm
+t/600_MyApp/lib/MyRMicro/Web/Controller/ViewTest.pm
+t/600_MyApp/lib/MyRMicro/Web/Dispatcher.pm
 t/600_MyApp/lib/Slug/Plugin/Test.pm
 t/600_MyApp/templates/index.tx
 t/perlcriticrc
