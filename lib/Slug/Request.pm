@@ -23,7 +23,7 @@ sub new_response {
     Slug::Response->new(@_);
 }
 sub args {
-    shift->env->{'slug.route_args'};
+    shift->env->{'slug.routing_args'};
 }
 
 1;
