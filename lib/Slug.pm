@@ -23,9 +23,9 @@ sub new { bless {}, shift; }
 sub startup {}
 sub to_app {
     my ($class) = @_;
-    my $self = $class->new;
     return sub {
         my($env) = @_;
+        my $self = $class->new;
         $self->create_request($env);
         $self->startup;
         $self->{routes}->dispatch($self) if $self->{routes};
