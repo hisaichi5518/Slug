@@ -1,2 +1,7 @@
+0.02 2011-04-09 00:00:00
+    - $c->req->argsが機能してなかったので修正
+    - template path を自動で作れるようにした(仕様変更する可能性大)
+    - trigger に after_build_template_path 追加
+
 0.01 2011-01-23 14:37:04
     - original version; create by poi.
