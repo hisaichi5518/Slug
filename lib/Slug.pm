@@ -88,11 +88,14 @@ sub render {
             $template = join "/", split(/::/, $controller), $action;
         }
     }
-    $self->run_hook("after_build_template_path", $self, $template, %args);
+    my @after_build_tpath_codes = $self->trigger->get_trigger_code('after_build_template_path');
+    for my $code (@after_build_tpath_codes) {
+        $template = $code->($self, $template, %args);
+    }
 
     my $html = $self->view->($template, %args);
-    my @code = $self->trigger->get_trigger_code('html_filter');
-    for my $code (@code) {
+    my @html_filter_codes = $self->trigger->get_trigger_code('html_filter');
+    for my $code (@html_filter_codes) {
         $html = $code->($self, $html);
     }
     $html = Encode::encode($self->encoding, $html, $self->encode_fb);
