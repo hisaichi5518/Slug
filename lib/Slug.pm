@@ -79,8 +79,17 @@ sub routes {
 }
 
 sub render {
-    my $self = shift;
-    my $html = $self->view->(@_);
+    my ($self, $template, %args) = @_;
+    unless ($template) {
+        my $routing_args = $self->req->args;
+        my $controller = $routing_args->{controller};
+        my $action     = $routing_args->{action};
+        if ($controller && $action) {
+            $template = join "/", split(/::/, $controller), $action;
+        }
+    }
+
+    my $html = $self->view->($template, %args);
     my @code = $self->trigger->get_trigger_code('html_filter');
     for my $code (@code) {
         $html = $code->($self, $html);
