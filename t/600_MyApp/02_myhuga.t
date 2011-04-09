@@ -18,4 +18,9 @@ is $mech->ct, 'text/html';
 $mech->title_is('hi!');
 $mech->content_contains('Hello Xslate World!');
 
+$mech->get_ok('/build-template-path');
+is $mech->ct, 'text/html';
+$mech->title_is('hi!');
+$mech->content_contains('Hello Xslate World!');
+
 done_testing;

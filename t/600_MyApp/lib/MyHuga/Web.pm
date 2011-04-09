@@ -14,6 +14,7 @@ sub startup {
 
     my $r = $self->routes("RSimple");
     $r->connect('/' => {controller => "ViewTest", action => "xslate"});
+    $r->connect('/build-template-path' => {controller => "ViewTest", action => "build_template_path"});
 }
 
 1;
