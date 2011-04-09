@@ -88,6 +88,7 @@ sub render {
             $template = join "/", split(/::/, $controller), $action;
         }
     }
+    $self->run_hook("after_build_template_path", $self, $template, %args);
 
     my $html = $self->view->($template, %args);
     my @code = $self->trigger->get_trigger_code('html_filter');
