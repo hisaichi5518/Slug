@@ -5,7 +5,6 @@ use parent 'Plack::Request';
 use Slug;
 use Slug::Response;
 use Hash::MultiValue;
-use URI::QueryParam;
 
 sub uri_for {
     my($self, $path, $args) = @_;
