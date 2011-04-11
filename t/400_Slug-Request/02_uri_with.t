@@ -13,7 +13,17 @@ my @tests = (
         host => "moe-project.com",
         args => [name => "hisaichi5518"],
         uri  => "http://moe-project.com/?name=hisaichi5518",
-    }
+    },
+    {
+        host => "moe-project.com",
+        args => [name => "hisaichi5518", name => "kuso"],
+        uri  => "http://moe-project.com/?name=hisaichi5518&name=kuso",
+    },
+    {
+        host => "moe-project.com",
+        args => [name => ["hisaichi5518", "kuso"]],
+        uri  => "http://moe-project.com/?name=hisaichi5518&name=kuso",
+    },
 );
 
 for my $t (@tests) {
