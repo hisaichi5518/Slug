@@ -1,4 +1,4 @@
-package MyApp::Web::Dispatcher;
+package MyRSimple::Web::Dispatcher;
 use strict;
 use warnings;
 

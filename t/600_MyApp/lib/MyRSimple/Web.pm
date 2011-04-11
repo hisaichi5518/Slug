@@ -1,11 +1,11 @@
-package MyApp::Web;
+package MyRSimple::Web;
 use strict;
 use warnings;
 
 use parent 'Slug';
 
 use FindBin;
-use MyApp::Web::Dispatcher;
+use MyRSimple::Web::Dispatcher;
 
 sub startup {
     my ($self) = @_;
@@ -28,7 +28,7 @@ sub startup {
     $r->connect("/view/xslate" => {
         controller => "ViewTest", action => "xslate"});
 
-    MyApp::Web::Dispatcher->routes($self, $r);
+    MyRSimple::Web::Dispatcher->routes($self, $r);
 }
 
 1;

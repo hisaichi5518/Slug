@@ -1,4 +1,4 @@
-package MyApp::Web::Controller::Root;
+package MyRSimple::Web::Controller::Root;
 use strict;
 use warnings;
 

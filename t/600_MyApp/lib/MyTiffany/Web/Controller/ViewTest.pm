@@ -1,4 +1,4 @@
-package MyHuga::Web::Controller::ViewTest;
+package MyTiffany::Web::Controller::ViewTest;
 use strict;
 use warnings;
 

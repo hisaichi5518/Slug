@@ -1,53 +1,42 @@
 use strict;
 use warnings;
 use Test::More;
-
-package AccessorBase;
-sub new {
-    bless {}, shift;
+{
+    package AccessorTest;
+    use Slug::Util::Accessor {
+        str => "string",
+        num => 25,
+        lazy   => sub { 5 * 20 },
+        no_str => "",
+        no_num => 0,
+    };
+    sub new {
+        my $class = shift;
+        bless {@_}, $class;
+    }
 }
+{
+    my $t = AccessorTest->new;
+    is $t->str, "string";
+    is $t->num, 25;
+    is $t->lazy, 100;
+    ok !$t->no_str;
+    ok !$t->no_num;
 
-package AccessorTest1;
-use base "AccessorBase";
-use Slug::Util::Accessor {
-    huga => "huga",
-    hoge => sub { "hoge" }
-};
-
-package AccessorTest2;
-use base "AccessorBase";
-use Slug::Util::Accessor {
-    num => 0,
-    str => "",
-};
-
-package main;
-my $num = [];
-for my $i (1 .. 50) {
-    $num->[$i] = AccessorTest1->new;
-
-    # huga
-    is $num->[$i]->huga, "huga";
-    $num->[$i]->huga($i);
-    is $num->[$i]->huga, $i;
-
-    # hoge
-    is $num->[$i]->hoge, "hoge";
-    $num->[$i]->hoge($i);
-    is $num->[$i]->hoge, $i;
+    $t->str("String: hisaichi5518");
+    $t->num(123456789012345678901);
+    $t->lazy(sub { 1 + 1 });
+    $t->no_str("str");
+    $t->no_num(1234);
+    is $t->str, "String: hisaichi5518";
+    is $t->num, 123456789012345678901;
+    is_deeply $t->lazy->(), 2;
+    is $t->no_str, "str";
+    is $t->no_num, 1234;
 }
-for my $i (51 .. 100) {
-    $num->[$i] = AccessorTest2->new;
-
-    # num
-    is $num->[$i]->num, 0;
-    $num->[$i]->num($i);
-    is $num->[$i]->num, $i;
-
-    # str
-    is $num->[$i]->str, "";
-    $num->[$i]->str($i);
-    is $num->[$i]->str, $i;
+{
+    my $t = AccessorTest->new(str => "STRING!", num => 1);
+    is $t->str, "STRING!";
+    is $t->num, 1;
 }
-
 done_testing;

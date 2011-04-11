@@ -1,4 +1,4 @@
-package MyApp::Web::Controller::ViewTest;
+package MyRSimple::Web::Controller::ViewTest;
 use strict;
 use warnings;
 

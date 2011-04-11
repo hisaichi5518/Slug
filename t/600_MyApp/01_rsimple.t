@@ -1,15 +1,14 @@
 use strict;
 use warnings;
 use Test::More;
-
 use FindBin;
 use lib "$FindBin::Bin/lib";
 
 use Test::WWW::Mechanize::PSGI;
-use MyApp::Web;
+BEGIN { use_ok "MyRSimple::Web"; };
 
 my $mech = Test::WWW::Mechanize::PSGI->new(
-    app => MyApp::Web->to_app,
+    app => MyRSimple::Web->to_app,
 );
 $mech->get_ok('/');
 is $mech->ct, 'text/html';

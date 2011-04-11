@@ -8,10 +8,10 @@ use lib "$FindBin::Bin/lib";
 
 
 use Test::WWW::Mechanize::PSGI;
-use MyHuga::Web;
+use MyTiffany::Web;
 
 my $mech = Test::WWW::Mechanize::PSGI->new(
-    app => MyHuga::Web->to_app,
+    app => MyTiffany::Web->to_app,
 );
 $mech->get_ok('/');
 is $mech->ct, 'text/html';

@@ -1,4 +1,4 @@
-package MyHuga::Web;
+package MyTiffany::Web;
 use strict;
 use warnings;
 
