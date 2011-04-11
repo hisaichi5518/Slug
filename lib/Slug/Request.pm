@@ -2,7 +2,10 @@ package Slug::Request;
 use strict;
 use warnings;
 use parent 'Plack::Request';
+use Slug;
 use Slug::Response;
+use Hash::MultiValue;
+use URI::QueryParam;
 
 sub uri_for {
     my($self, $path, $args) = @_;
@@ -16,7 +19,6 @@ sub uri_with {
     my $uri = $self->base;
     $uri->query_form(@$args) if $args;
     $uri;
-
 }
 sub new_response {
     my $self = shift;
@@ -24,6 +26,64 @@ sub new_response {
 }
 sub args {
     shift->env->{'slug.routing_args'};
+}
+sub body_parameters {
+    my $self = shift;
+    $self->env->{'slug.request.body'} ||=
+        $self->_decode_parameters(
+            $self->SUPER::body_parameters
+        );
+}
+sub query_parameters {
+    my $self = shift;
+    $self->env->{'slug.request.query'} ||=
+        $self->_decode_parameters(
+            $self->SUPER::query_parameters
+        );
+}
+sub _decode_parameters {
+    my ($self, $parameters) = @_;
+    my $encoding = Slug->context->encoding;
+    my @flatten = $parameters->flatten;
+    my @decoded;
+    for my $v (@flatten) {
+        push @decoded, Encode::decode($encoding, $v),
+    }
+    return Hash::MultiValue->new(@decoded);
+}
+sub parameters {
+    my $self = shift;
+    $self->env->{'slug.request.merged'} ||= do {
+        my $q = $self->query_parameters;
+        my $b = $self->body_parameters;
+        Hash::MultiValue->new(
+            $q->flatten,
+            $b->flatten,
+        );
+    };
+}
+sub body_parameters_raw {
+    shift->SUPER::body_parameters(@_);
+}
+sub query_parameters_raw {
+    shift->SUPER::query_parameters(@_);
+}
+sub parameters_raw {
+    my $self = shift;
+    $self->env->{'plack.request.merged'} ||= do {
+        my $query = $self->SUPER::query_parameters;
+        my $body  = $self->SUPER::body_parameters;
+        Hash::MultiValue->new($query->flatten, $body->flatten);
+    };
+}
+sub param_raw {
+    my $self = shift;
+
+    return keys %{ $self->parameters_raw } if @_ == 0;
+
+    my $key = shift;
+    return $self->parameters_raw->{$key} unless wantarray;
+    return $self->parameters_raw->get_all($key);
 }
 
 1;

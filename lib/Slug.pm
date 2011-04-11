@@ -19,6 +19,11 @@ use Slug::Util::Accessor {
 };
 use Plack::Util::Accessor qw(view);
 
+{
+    our $CONTEXT;
+    sub context { $CONTEXT; }
+    sub set_context { $CONTEXT = $_[1]; }
+}
 sub new { bless {}, shift; }
 sub startup {}
 sub to_app {
@@ -26,6 +31,7 @@ sub to_app {
     return sub {
         my($env) = @_;
         my $self = $class->new;
+        local $Slug::CONTEXT = $self;
         $self->create_request($env);
         $self->startup;
         $self->{routes}->dispatch($self) if $self->{routes};
@@ -77,7 +83,6 @@ sub routes {
     my $module = Plack::Util::load_class($name, "Slug::Route");
     $self->{routes} = $module->new(@args);
 }
-
 sub render {
     my ($self, $template, %args) = @_;
     unless ($template) {
