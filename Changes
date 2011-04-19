@@ -1,4 +1,4 @@
-0.04 2011-4-11 00:00:00
+0.04 2011-04-11 00:00:00
     - テスト書き直し、テストのファイル名変更、テスト追加
     - Slug->context, Slug->set_context追加
     - Slug::Requestのparameters, body_parameters, query_parameters
@@ -6,7 +6,7 @@
     - Slug::Requestにparameters_raw, body_parameters_raw,
       query_parameters_raw, param_raw を追加
 
-0.03 2011-4-10 00:00:00
+0.03 2011-04-10 00:00:00
     - MANIFEST変更し忘れ
     - after_build_template_pathがちゃんと動作してなかったのを修正
     - $app->()する毎にnewするように変更
