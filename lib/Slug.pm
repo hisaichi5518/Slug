@@ -24,13 +24,17 @@ use Plack::Util::Accessor qw(view);
     sub context { $CONTEXT; }
     sub set_context { $CONTEXT = $_[1]; }
 }
-sub new { bless {}, shift; }
+sub new {
+    my $class = shift;
+    my %args = @_ == 1 ? %{$_[0]} : @_;
+    bless {%args}, $class;
+}
 sub startup {}
 sub to_app {
-    my ($class) = @_;
+    my ($class, %args) = @_;
     return sub {
         my($env) = @_;
-        my $self = $class->new;
+        my $self = $class->new(%args);
         local $Slug::CONTEXT = $self;
         $self->create_request($env);
         $self->startup;
