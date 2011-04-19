@@ -8,8 +8,14 @@ use Hash::MultiValue;
 
 sub uri_for {
     my($self, $path, $args) = @_;
-    my $uri = $self->base;
-    $uri->path($uri->path . ($path || ""));
+    $path ||= "";
+    my $uri      = $self->base;
+    my $uri_path = $uri->path || "/";
+
+    $uri_path =~ s{([^/])$}{$1/}g;
+    $path     =~ s{^/}{}g;
+
+    $uri->path($uri_path . ($path || ""));
     $uri->query_form(@$args) if $args;
     $uri;
 }

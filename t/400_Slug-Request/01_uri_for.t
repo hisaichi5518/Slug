@@ -17,6 +17,12 @@ my @tests = (
     },
     {
         host => "localhost",
+        script_name => "/",
+        path => "/",
+        uri  => "http://localhost/",
+    },
+    {
+        host => "localhost",
         path => "hoge",
         args => [name => "hisaichi5518"],
         uri  => "http://localhost/hoge?name=hisaichi5518",
