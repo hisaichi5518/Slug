@@ -113,6 +113,25 @@ sub render {
         [$html]
     );
 }
+sub redirect_to {
+    my ($self, $target, $args) = @_;
+    my $uri = do {
+        if ($target =~ /^http\:\/\//) {
+            $target;
+        }
+        else {
+            $self->req->uri_for($target, $args);
+        }
+    };
+    return $self->create_response(
+        302,
+        [
+            'Location' => $uri,
+            'Content-Length' => 0,
+        ],
+        []
+    );
+}
 sub not_found {
     my ($self, $text) = @_;
     $text ||= "404 Not Found!";
