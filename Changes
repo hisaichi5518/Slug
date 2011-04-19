@@ -1,3 +1,10 @@
+0.05 2011-04-19 00:00:00
+    - uri_forのバグ修正
+    - redirect_to追加
+    - newをまともに
+    - to_appの中でもset_contextを使うようにした
+    - Changesの日付がおかしいので修正
+
 0.04 2011-04-11 00:00:00
     - テスト書き直し、テストのファイル名変更、テスト追加
     - Slug->context, Slug->set_context追加
