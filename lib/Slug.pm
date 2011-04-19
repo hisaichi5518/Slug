@@ -35,7 +35,7 @@ sub to_app {
     return sub {
         my($env) = @_;
         my $self = $class->new(%args);
-        local $Slug::CONTEXT = $self;
+        Slug->set_context($self);
         $self->create_request($env);
         $self->startup;
         $self->{routes}->dispatch($self) if $self->{routes};
