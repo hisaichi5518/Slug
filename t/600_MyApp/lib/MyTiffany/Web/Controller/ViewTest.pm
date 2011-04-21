@@ -4,7 +4,7 @@ use warnings;
 
 sub xslate {
     my ($self, $c) = @_;
-    $c->render('index.tx');
+    $c->render('index.tx', {name => "Xslate"});
 }
 sub build_template_path {
     my ($self, $c) = @_;

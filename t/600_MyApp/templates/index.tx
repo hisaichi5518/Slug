@@ -1,1 +1,1 @@
-<html><head><title>hi!</title></head><body>Hello Xslate World!</body></html>
+<html><head><title>hi!</title></head><body>Hello <: $name :> World!</body></html>

@@ -4,6 +4,6 @@ use warnings;
 
 sub xslate {
     my ($self, $c) = @_;
-    $c->render('index.tx');
+    $c->render('index.tx',{name => "Xslate"});
 }
 1;

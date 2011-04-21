@@ -88,7 +88,7 @@ sub routes {
     $self->{routes} = $module->new(@args);
 }
 sub render {
-    my ($self, $template, %args) = @_;
+    my ($self, $template, $args) = @_;
     unless ($template) {
         my $routing_args = $self->req->args;
         my $controller = $routing_args->{controller};
@@ -99,10 +99,10 @@ sub render {
     }
     my @after_build_tpath_codes = $self->trigger->get_trigger_code('after_build_template_path');
     for my $code (@after_build_tpath_codes) {
-        $template = $code->($self, $template, %args);
+        $template = $code->($self, $template, $args);
     }
 
-    my $html = $self->view->($template, %args);
+    my $html = $self->view->($template, $args);
     my @html_filter_codes = $self->trigger->get_trigger_code('html_filter');
     for my $code (@html_filter_codes) {
         $html = $code->($self, $html);
