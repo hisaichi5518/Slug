@@ -21,7 +21,7 @@ sub uri_for {
 }
 sub uri_with {
     my($self, $args) = @_;
-    my $uri = $self->base;
+    my $uri = $self->uri;
     $uri->query_form(@$args) if $args;
     $uri;
 }
