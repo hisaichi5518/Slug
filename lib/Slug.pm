@@ -120,8 +120,7 @@ sub render {
     $template = $self->plugins->template_path($self, $template, $args) || $template;
     my $html  = $self->view->($template, $args);
        $html  = $self->plugins->html_filter($self, $html) || $html;
-       $html  = Encode::encode($self->encoding, $html, $self->encode_fb);
-    $self->ok($html);
+    $self->ok($self->encode($html));
 }
 sub ok {
     my ($self, $html) = @_;
