@@ -13,7 +13,6 @@ use Encode         ();
 
 use Slug::Util::Accessor {
     html_content_type => 'text/html; charset=UTF-8',
-    encode_fb         => sub { sub{} },
 };
 use Plack::Util::Accessor qw(view);
 
