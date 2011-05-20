@@ -113,6 +113,10 @@ sub render {
     my $html  = $self->view->($template, $args);
        $html  = $self->plugins->html_filter($self, $html) || $html;
        $html  = Encode::encode($self->encoding, $html, $self->encode_fb);
+    $self->ok($html);
+}
+sub ok {
+    my ($self, $html) = @_;
     return $self->create_response(
         200,
         [
