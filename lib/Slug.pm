@@ -13,8 +13,8 @@ use Encode         ();
 
 use Slug::Util::Accessor {
     html_content_type => 'text/html; charset=UTF-8',
+    view              => "",
 };
-use Plack::Util::Accessor qw(view);
 
 {
     our $CONTEXT;
