@@ -21,7 +21,6 @@ sub dispatch {
     else {
         return $c->not_found;
     }
-    $c->run_hook("after_dispatch", $c);
 }
 
 1;

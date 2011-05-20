@@ -37,8 +37,9 @@ sub to_app {
         Slug->set_context($self);
         $self->create_request($env);
         $self->startup;
+        $self->plugins->before_dispatch($self);
         $self->{routes}->dispatch($self) if $self->{routes};
-        $self->run_hook("after_build_response", $self, $self->response);
+        $self->plugins->after_dispatch($self);
         return $self->response->finalize;
     };
 }
@@ -107,17 +108,11 @@ sub render {
             $template = join "/", split(/::/, $controller), $action;
         }
     }
-    my @after_build_tpath_codes = $self->trigger->get_trigger_code('after_build_template_path');
-    for my $code (@after_build_tpath_codes) {
-        $template = $code->($self, $template, $args);
-    }
 
-    my $html = $self->view->($template, $args);
-    my @html_filter_codes = $self->trigger->get_trigger_code('html_filter');
-    for my $code (@html_filter_codes) {
-        $html = $code->($self, $html);
-    }
-    $html = Encode::encode($self->encoding, $html, $self->encode_fb);
+    $template = $self->plugins->template_path($self, $template, $args) || $template;
+    my $html  = $self->view->($template, $args);
+       $html  = $self->plugins->html_filter($self, $html) || $html;
+       $html  = Encode::encode($self->encoding, $html, $self->encode_fb);
     return $self->create_response(
         200,
         [
