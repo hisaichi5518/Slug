@@ -68,18 +68,10 @@ sub run_hook {
     _deprecated("run_hook" => "plugins->run_hook");
     shift->plugins->run_hook(@_);
 }
-sub request {
-    shift->{request};
-}
-sub req {
-    shift->{request};
-}
-sub response {
-    shift->{response};
-}
-sub res {
-    shift->{response};
-}
+sub request  { shift->{request}  }
+sub req      { shift->{request}  }
+sub response { shift->{response} }
+sub res      { shift->{response} }
 sub new_request {
     shift;
     Slug::Request->new(@_);
