@@ -12,7 +12,6 @@ sub startup {
 
     my $r = $self->routes("RSimple");
     $r->connect("/" => {controller => "Root", action => "index"});
-    $r->connect("/huga" => {controller => "Root", action => "index"});
 }
 
 1;
