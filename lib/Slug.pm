@@ -198,11 +198,11 @@ Slugは、Plackベースの早くて、小さいウェブアプリケーショ�
 
 =head2 to_app
 
+=head2 plugins
+
 =head2 plugin
 
-=head2 add_hook
-
-=head2 run_hook
+=head2 hook
 
 =head2 request
 
