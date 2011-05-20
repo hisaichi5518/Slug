@@ -20,6 +20,7 @@ inc/Test/WWW/Mechanize/PSGI.pm
 lib/Slug.pm
 lib/Slug/Plugin/Web/View/Tiffany.pm
 lib/Slug/Plugin/Web/View/Xslate.pm
+lib/Slug/Plugins.pm
 lib/Slug/Request.pm
 lib/Slug/Response.pm
 lib/Slug/Route/RMicro.pm
