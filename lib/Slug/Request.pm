@@ -52,7 +52,7 @@ sub _decode_parameters {
     my @flatten = $parameters->flatten;
     my @decoded;
     for my $v (@flatten) {
-        push @decoded, Encode::decode($encoding, $v),
+        push @decoded, $encoding->decode($v),
     }
     return Hash::MultiValue->new(@decoded);
 }
