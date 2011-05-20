@@ -31,17 +31,13 @@ MANIFEST			This list of files
 META.yml
 README
 t/00_compile.t
-t/100_Slug-Util-Accessor/00_compile.t
 t/100_Slug-Util-Accessor/01_accessor.t
 t/200_Slug-Plugins/01_hook.t
 t/200_Slug-Plugins/02_plugin.t
 t/200_Slug-Plugins/lib/MyApp/Plugin/Test.pm
-t/300_Slug-Response/00_compile.t
-t/400_Slug-Request/00_compile.t
 t/400_Slug-Request/01_uri_for.t
 t/400_Slug-Request/02_uri_with.t
 t/400_Slug-Request/03_parameters.t
-t/500_Slug/00_compile.t
 t/500_Slug/01_slug.t
 t/600_App/01_hello.t
 t/600_App/02_rsimple.t
