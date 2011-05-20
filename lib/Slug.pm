@@ -102,6 +102,10 @@ sub routes {
     my $module = Plack::Util::load_class($name, "Slug::Route");
     $self->{routes} = $module->new(@args);
 }
+sub encode {
+    my ($self, $str) = @_;
+    $self->encoding->encode($str);
+}
 sub render {
     my ($self, $template, $args) = @_;
     unless ($template) {
