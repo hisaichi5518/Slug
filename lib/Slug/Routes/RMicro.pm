@@ -1,4 +1,4 @@
-package Slug::Route::RMicro;
+package Slug::Routes::RMicro;
 use strict;
 use warnings;
 

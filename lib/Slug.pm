@@ -98,7 +98,7 @@ sub create_response {
 }
 sub routes {
     my ($self, $name, @args) = @_;
-    my $module = Plack::Util::load_class($name, "Slug::Route");
+    my $module = Plack::Util::load_class($name, "Slug::Routes");
     $self->{routes} = $module->new(@args);
 }
 sub encode {

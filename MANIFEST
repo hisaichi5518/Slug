@@ -23,8 +23,8 @@ lib/Slug/Plugin/Web/View/Xslate.pm
 lib/Slug/Plugins.pm
 lib/Slug/Request.pm
 lib/Slug/Response.pm
-lib/Slug/Route/RMicro.pm
-lib/Slug/Route/RSimple.pm
+lib/Slug/Routes/RMicro.pm
+lib/Slug/Routes/RSimple.pm
 lib/Slug/Trigger.pm
 lib/Slug/Util/Accessor.pm
 Makefile.PL

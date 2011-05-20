@@ -1,4 +1,4 @@
-package Slug::Route::RSimple;
+package Slug::Routes::RSimple;
 use strict;
 use warnings;
 
