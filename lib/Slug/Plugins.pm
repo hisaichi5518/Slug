@@ -26,11 +26,10 @@ sub add_hook {
     }
 }
 sub run_hook {
-    my ($self, $name, @args) = @_;
+    my ($self, $name, $data, @args) = @_;
     my @code = $self->get_hook_codes($name);
-    my $data;
     for my $code (@code) {
-        $data = $code->(Slug->context, @args);
+        $data = $code->(Slug->context, $data, @args);
     }
     $data;
 }

@@ -13,12 +13,13 @@ use Test::More;
         $self->plugins->add_hook(after_dispatch  => sub { shift->req->env->{'slug.hook'} = "after" });
         $self->plugins->add_hook(template_path   => sub { "index.tx" });
         $self->plugins->add_hook(html_filter     => sub { "index" });
+        $self->plugins->add_hook(html_filter     => sub { "hoge"  });
         $self->view(sub { die unless $_[0]; "unko" });
         $self->render;
     }
 }
 
 my $app = MyApp::Web->to_app->({PATH_INFO => "/"});
-is $app->[2]->[0], "index";
+is $app->[2]->[0], "hoge";
 
 done_testing;
