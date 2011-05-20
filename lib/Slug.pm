@@ -5,7 +5,7 @@ use warnings;
 use 5.008_001;
 our $VERSION = '0.07';
 
-use Slug::Trigger  ();
+use Slug::Plugins  ();
 use Slug::Response ();
 use Slug::Request  ();
 use Plack::Util    ();
@@ -15,7 +15,6 @@ use Slug::Util::Accessor {
     encoding          => 'utf-8',
     html_content_type => 'text/html; charset=UTF-8',
     encode_fb         => sub { sub{} },
-    trigger           => sub { Slug::Trigger->new }
 };
 use Plack::Util::Accessor qw(view);
 
@@ -43,16 +42,27 @@ sub to_app {
         return $self->response->finalize;
     };
 }
+sub plugins {
+    shift->{plugins} ||= Slug::Plugins->new;
+}
 sub plugin {
-    my ($self, $module, $conf) = @_;
-    $module = Plack::Util::load_class($module, 'Slug::Plugin');
-    $module->init($self, $conf);
+    my ($self, $name, $conf) = @_;
+    $self->plugins->init_plugin($name, $self, $conf);
+}
+sub hook {
+    shift->plugins->add_hook(@_);
+}
+sub trigger {
+    _deprecated('trigger' => 'plugins');
+    shift->{trigger} ||= Plack::Util::load_class('Slug::Trigger')->new;
 }
 sub add_hook {
-    shift->trigger->add_trigger(@_);
+    _deprecated("add_hook" => "hook");
+    shift->plugins->add_hook(@_);
 }
 sub run_hook {
-    shift->trigger->call_trigger(@_);
+    _deprecated("run_hook" => "plugins->run_hook");
+    shift->plugins->run_hook(@_);
 }
 sub request {
     shift->{request};
@@ -162,6 +172,10 @@ sub stash {
         $self->{stash}->{$key} = $values->{$key};
     }
     return $self->{stash};
+}
+sub _deprecated {
+    require Carp;
+    Carp::carp(shift . " is deprecated. use ". shift . ".");
 }
 
 1;
