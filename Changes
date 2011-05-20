@@ -1,3 +1,22 @@
+0.10 2011-5-20 00:00:00
+*重要* このバージョンは、互換性のなくなる変更が含まれています。
+    - READMEの変更
+    - テストを書きなおした。
+    - Slug のtrigger, add_hook, run_hookをdeprecatedに変更した
+    - Slug::Pluginsを追加
+    - hookの名前を見直し
+    - Slug に hook, plugins 追加
+    - Slug に ok, encode 追加
+    - Slug の encoding の仕様変更
+        Encode::Encoding のオブジェクトを返す。
+    - Slug の encode_fb を削除
+    - Plack::Util::Accessor を使わないようにした。
+    - Slug::Route::RSimple を Slug::Routes::RSimpleに変更
+    - Slug::Route::RMicro を Slug::Routes::RMicroに変更
+    - Slug の routes を引数がない場合、$c->{routes}を返すようにした。
+    - テンプレート名を自動で補完するのを廃止
+    - 様々なcleanup
+
 0.07 2011-04-22 00:00:00
     - uri_withがおかしかった
 

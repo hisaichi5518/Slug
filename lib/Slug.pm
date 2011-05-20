@@ -3,7 +3,7 @@ package Slug;
 use strict;
 use warnings;
 use 5.008_001;
-our $VERSION = '0.07';
+our $VERSION = '0.10';
 
 use Slug::Plugins  ();
 use Slug::Response ();
