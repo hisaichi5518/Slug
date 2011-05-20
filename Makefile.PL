@@ -5,16 +5,14 @@ use inc::Module::Install;
 
 name 'Slug';
 all_from 'lib/Slug.pm';
-readme_from 'lib/Slug.pm';
 license 'perl';
 
 requires "Plack"  => 0.9943;
-requires "Encode";
+requires "Encode" => 2.21;
 requires "parent" => 0.223;
 requires "Router::Simple" => 0.06;
 requires "Text::Xslate"   => 0.1056;
 
-test_requires 'FindBin';
 test_requires 'Test::More' => 0.88;
 test_requires 'Test::WWW::Mechanize::PSGI';
 test_requires 'Test::Requires';
