@@ -12,7 +12,6 @@ use Plack::Util    ();
 use Encode         ();
 
 use Slug::Util::Accessor {
-    encoding          => 'utf-8',
     html_content_type => 'text/html; charset=UTF-8',
     encode_fb         => sub { sub{} },
 };
@@ -42,6 +41,11 @@ sub to_app {
         $self->plugins->after_dispatch($self);
         return $self->response->finalize;
     };
+}
+sub encoding {
+    my ($self, $encoding) = @_;
+    return $self->{encoding} if !$encoding && exists $self->{encoding};
+    $self->{encoding} = Encode::find_encoding($encoding || 'utf8') or die "encoding '$encoding' not found";
 }
 sub plugins {
     shift->{plugins} ||= Slug::Plugins->new;
