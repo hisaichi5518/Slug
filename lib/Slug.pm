@@ -99,15 +99,6 @@ sub encode {
 }
 sub render {
     my ($self, $template, $args) = @_;
-    unless ($template) {
-        my $routing_args = $self->req->args;
-        my $controller = $routing_args->{controller};
-        my $action     = $routing_args->{action};
-        if ($controller && $action) {
-            $template = join "/", split(/::/, $controller), $action;
-        }
-    }
-
     $template = $self->plugins->template_path($self, $template, $args) || $template;
     my $html  = $self->view->($template, $args);
        $html  = $self->plugins->html_filter($self, $html) || $html;
