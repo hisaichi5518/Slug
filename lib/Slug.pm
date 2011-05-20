@@ -3,21 +3,21 @@ package Slug;
 use strict;
 use warnings;
 use 5.008_001;
-our $VERSION = '0.10';
 
 use Slug::Plugins  ();
 use Slug::Response ();
 use Slug::Request  ();
 use Plack::Util    ();
 use Encode         ();
-
 use Slug::Util::Accessor {
     html_content_type => 'text/html; charset=UTF-8',
     view              => "",
 };
 
+our $VERSION = '0.10';
+
 {
-    our $CONTEXT;
+    my $CONTEXT;
     sub context { $CONTEXT; }
     sub set_context { $CONTEXT = $_[1]; }
 }
