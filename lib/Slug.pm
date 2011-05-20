@@ -36,7 +36,7 @@ sub to_app {
         $self->create_request($env);
         $self->startup;
         $self->plugins->before_dispatch($self);
-        $self->{routes}->dispatch($self) if $self->{routes};
+        $self->routes->dispatch($self) if $self->routes;
         $self->plugins->after_dispatch($self);
         return $self->response->finalize;
     };
@@ -97,9 +97,9 @@ sub create_response {
     $self->{response} = $self->new_response(@_);
 }
 sub routes {
-    my ($self, $name, @args) = @_;
-    my $module = Plack::Util::load_class($name, "Slug::Routes");
-    $self->{routes} = $module->new(@args);
+    my ($self, $name, %args) = @_;
+    return $self->{routes} unless $name;
+    $self->{routes} = Plack::Util::load_class($name, "Slug::Routes")->new(%args);
 }
 sub encode {
     my ($self, $str) = @_;
