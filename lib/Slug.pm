@@ -177,7 +177,31 @@ Slug - micro web app framework !
 
 =head1 SYNOPSIS
 
+  # Web.pm
+  package MyApp::Web;
   use parent "Slug";
+  
+  sub startup {
+    my ($self) = @_;
+    
+    $self->plugin("Web::View::Xslate" => {path => ["./templates"]);
+    
+    my $r = $self->routes('RSimple');
+    $r->connect('/' => {controller => "Root", action => "index"});
+  }
+  
+  # Root.pm
+  package MyApp::Web::Controller::Root;
+  use strict;
+  use warnings;
+  
+  sub index {
+    my ($self, $c) = @_;
+    $c->render('index.tx');
+  }
+  
+  # index.tx
+  Hello World!
 
 =head1 DESCRIPTION
 
@@ -185,39 +209,164 @@ Slugは、Plackベースの早くて、小さいウェブアプリケーショ�
 
 =head1 METHOD
 
+Slug.pm は、継承して使います。
+ここでは、MyApp::Web に継承したとして説明しています。
+
 =head2 new
+
+  my $c = MyApp::Web->new;
 
 =head2 startup
 
+  $app->startup;
+
+アプリケーションが開始した時に呼び出されるフックです。
+
+他のフックとは違い、 add_hook は使わずに以下のようにします。
+
+sub startup {
+    my ($self) = @_;
+    ...
+  }
+
+何か値を返さなければならないという事はありません。
+
 =head2 to_app
+
+  MyApp::Web->to_app;
+
+.psgi ファイルの中で使います。
+Slugがどういう流れで動いてるか確認したい場合はここを見たらよいでしょう。
+
+=head2 encoding
+
+  $c->encoding;
+  $c->encoding('shift_jis');
+
+引数があった場合、$c->{encoding} がない場合は、Encode::Encoding のオブジェクトを $c->{encoding} に代入します。
+引数がなく、$c->{encoding} がある場合は、$c->{encoding} を返します。
 
 =head2 plugins
 
+  $c->plugins;
+
+Slug::Plugins のオブジェクトを返します。
+
 =head2 plugin
+
+  $c->plugin("ConfigLoader" => {});
+  $c->plugin("+MyApp::Hooks");
+
+$c->plugins->init_plugin; のショートカットです。
+
+プラグインを呼び出します。
 
 =head2 hook
 
+  $c->hook("after_dispatch" => sub {});
+
+$c->plugins->add_hook; のショートカットです。
+
+フックを追加します。
+
 =head2 request
 
-=head2 req
+  $c->request;
+  $c->req;
+
+Slug::Request のオブジェクトがあればオブジェクトを返します。
+
+req も同じように動きます。
 
 =head2 response
 
-=head2 res
+  $c->response;
+  $c->res;
+
+Slug::Response のオブジェクトがあればオブジェクトを返します。
+
+res も同じように動きます。
 
 =head2 new_request
 
+  $c->new_request;
+
+Slug::Request->new; を行います。
+
+*注意* これだけでは、$c->{request} にオブジェクトは代入されません。
+
+$c->{request} に代入したい場合は、create_request を使ってください。
+
 =head2 new_response
+
+  $c->new_response;
+
+Slug::Response->new; を行います。
+
+*注意* これだけでは、$c->{response} にオブジェクトは代入されません。
+
+$c->{response} に代入したい場合は、create_response を使ってください。
 
 =head2 create_request
 
+  $c->create_request;
+
+new_request して、$c->{request} に代入します。
+
 =head2 create_response
+
+  $c->create_response;
+
+new_response して、$c->{response} に代入します。
+
+=head2 routes
+
+  $c->routes;                   #=> $c->{routes};
+  $c->routes('RSimple');        #=> Slug::Routes::RSimple->new;
+  $c->routes('+MyApp::Routes'); #=> MyApp::Routes->new;
+
+=head2 encode
+
+  $c->encode($str);
+
+encoding を使ってencodeします。
 
 =head2 render
 
+  $c->render("index.tx", { hoge => 1 });
+
+テンプレートエンジンを呼び出してhtmlを構成し、200を返すように create_response を行います。
+
+renderを使用するには、viewが設定されている必要があります。
+
+=head2 ok
+
+  $c->ok($html);
+
+必ずencodeされた値を渡します。
+
+200で create_response します。
+
+=head2 redirect_to
+
+  $c->redirect_to('http://localhost/');
+  $c->redirect_to('/user/hisaichi5518', [hoge => 1]);
+
+リダイレクトするように create_response します。
+
 =head2 not_found
 
+  $c->not_found($text);
+
+必ずencodeされた値を渡します。
+
+404 で create_response します。
+
 =head2 stash
+
+  $c->stash('config');
+  $c->stash(config => {hgoe => 1});
+  delete $c->stash->{config};
 
 =head1 AUTHOR
 
