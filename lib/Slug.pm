@@ -102,7 +102,7 @@ sub render {
     $template = $self->plugins->template_path($self, $template, $args) || $template;
     my $html  = $self->view->($template, $args);
        $html  = $self->plugins->html_filter($self, $html) || $html;
-    $self->ok($self->encode($html));
+    $self->ok($html);
 }
 sub ok {
     my ($self, $html) = @_;
@@ -112,7 +112,7 @@ sub ok {
             'Content-Type' => $self->html_content_type,
             'Content-Length' => length($html),
         ],
-        [$html]
+        [$self->encode($html)]
     );
 }
 sub redirect_to {
@@ -140,7 +140,7 @@ sub not_found {
     return $self->create_response(
         404,
         ['Content-Length' => length($text)],
-        [$text]
+        [$self->encode($text)]
     );
 }
 sub stash {
@@ -343,8 +343,6 @@ renderを使用するには、viewが設定されている必要があります�
 
   $c->ok($html);
 
-必ずencodeされた値を渡します。
-
 200で create_response します。
 
 =head2 redirect_to
@@ -357,8 +355,6 @@ renderを使用するには、viewが設定されている必要があります�
 =head2 not_found
 
   $c->not_found($text);
-
-必ずencodeされた値を渡します。
 
 404 で create_response します。
 
