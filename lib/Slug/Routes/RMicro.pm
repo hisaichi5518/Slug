@@ -4,19 +4,17 @@ use warnings;
 
 use parent "Router::Micro";
 use Plack::Util ();
-
 sub dispatch {
     my ($self, $c) = @_;
-    my $req = $c->request;
-    if (my $args = $self->match($req->env)) {
-        $req->env->{'slug.routing_args'} = $args;
 
-        my $action = $args->{action};
-        return $c->not_found unless $action;
+    if (my $args = $self->match($c->req->env)) {
+        $c->req->env->{'slug.routing_args'} = $args;
 
-        my $klass = ref($c)."::Controller::$args->{controller}";
-        Plack::Util::load_class($klass);
-        return $klass->$action($c, $args);
+        my $action     = $args->{action};
+        my $namespace = $args->{namespace} || $self->{namespace} || ref($c)."::Controller";
+
+        return $c->not_found if !$action || !($args->{controller});
+        return Plack::Util::load_class($args->{controller}, $namespace)->$action($c);
     }
     else {
         return $c->not_found;
