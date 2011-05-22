@@ -49,5 +49,16 @@ test_psgi
         diag $res->content if $res->code != 404;
     };
 
+test_psgi
+    app => $app,
+    client => sub {
+        my $cb = shift;
+        my $req = HTTP::Request->new(GET => 'http://localhost/namespace');
+        my $res = $cb->($req);
+        is $res->code, 200;
+        is $res->content, "ok!";
+        diag $res->content if $res->code != 200;
+    };
+
 done_testing;
 

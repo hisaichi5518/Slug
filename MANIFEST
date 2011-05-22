@@ -53,11 +53,13 @@ t/apps/hello/app.psgi
 t/apps/hello/lib/Hello/Web.pm
 t/apps/hello/t/01_ok.t
 t/apps/rmicro/app.psgi
+t/apps/rmicro/lib/MyApp/C/Root.pm
 t/apps/rmicro/lib/MyApp/Web.pm
 t/apps/rmicro/lib/MyApp/Web/Controller/Root.pm
 t/apps/rmicro/lib/MyApp/Web/Dispatcher.pm
 t/apps/rmicro/t/01_ok.t
 t/apps/rsimple/app.psgi
+t/apps/rsimple/lib/MyApp/C/Root.pm
 t/apps/rsimple/lib/MyApp/Web.pm
 t/apps/rsimple/lib/MyApp/Web/Controller/Root.pm
 t/apps/rsimple/lib/MyApp/Web/Dispatcher.pm
