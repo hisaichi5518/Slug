@@ -112,7 +112,7 @@ sub ok {
             'Content-Type' => $self->html_content_type,
             'Content-Length' => length($html),
         ],
-        [$self->encode($html)]
+        [Encode::is_utf8($html) ? $self->encode($html) : $html]
     );
 }
 sub redirect_to {
@@ -140,7 +140,7 @@ sub not_found {
     return $self->create_response(
         404,
         ['Content-Length' => length($text)],
-        [$self->encode($text)]
+        [Encode::is_utf8($text) ? $self->encode($text) : $text]
     );
 }
 sub stash {
