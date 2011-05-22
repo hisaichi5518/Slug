@@ -17,6 +17,7 @@ inc/Test/More.pm
 inc/Test/Requires.pm
 inc/Test/WWW/Mechanize/PSGI.pm
 lib/Slug.pm
+lib/Slug/Plugin/ConfigLoader.pm
 lib/Slug/Plugin/Web/View/Tiffany.pm
 lib/Slug/Plugin/Web/View/Xslate.pm
 lib/Slug/Plugins.pm
@@ -35,10 +36,14 @@ t/100_Slug-Util-Accessor/01_accessor.t
 t/200_Slug-Plugins/01_hook.t
 t/200_Slug-Plugins/02_plugin.t
 t/200_Slug-Plugins/lib/MyApp/Plugin/Test.pm
+t/300_Slug-Plugin/01_config.t
+t/300_Slug-Plugin/config.pl
 t/400_Slug-Request/01_uri_for.t
 t/400_Slug-Request/02_uri_with.t
 t/400_Slug-Request/03_parameters.t
+t/500_Slug/01_app.t
 t/500_Slug/01_slug.t
+t/500_Slug/02_encode.t
 t/600_App/01_hello.t
 t/600_App/02_rsimple.t
 t/600_App/03_rmicro.t
