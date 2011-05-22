@@ -9,17 +9,53 @@ use Test::More;
 
     sub startup {
         my ($self) = @_;
-        $self->plugins->add_hook(before_dispatch => sub { shift->req->env->{'slug.hook'} = "before" });
-        $self->plugins->add_hook(after_dispatch  => sub { shift->req->env->{'slug.hook'} = "after" });
-        $self->plugins->add_hook(template_path   => sub { "index.tx" });
-        $self->plugins->add_hook(html_filter     => sub { "index" });
-        $self->plugins->add_hook(html_filter     => sub { "hoge"  });
-        $self->view(sub { die unless $_[0]; "unko" });
+        $self->plugins->add_hook(template_path =>
+            sub { "template_path" }
+        );
+        $self->plugins->add_hook(template_path =>
+            sub {
+                my ($c, $path, $args) = @_;
+                $path eq "template_path" ? "ok.tx" : "ng.tx";
+            }
+        );
+        $self->view(
+            sub {
+                my ($path, $args) = @_;
+                die "template_path" unless $path eq "ok.tx";
+                "html"
+            }
+        );
+        $self->plugins->add_hook(html_filter =>
+            sub {
+                my ($c, $html) = @_;
+                $html eq "html" ? "ok" : "ng";
+            }
+        );
+        $self->plugins->add_hook(html_filter =>
+            sub {
+                my ($c, $html) = @_;
+                die "html_filter" unless $html eq "ok";
+                "ok!";
+            }
+        );
+        $self->plugins->add_hook(before_dispatch =>
+            sub {
+                my ($c) = @_;
+                $c->req->env->{'slug.hook'} = "before";
+            }
+        );
+        $self->plugins->add_hook(after_dispatch  =>
+            sub {
+                my ($c) = @_;
+                $c->res->header("X-Slug" => "OK") if $c->req->env->{'slug.hook'} eq "before";
+            }
+        );
         $self->render;
     }
 }
 
 my $app = MyApp::Web->to_app->({PATH_INFO => "/"});
-is $app->[2]->[0], "hoge";
+is_deeply +{@{$app->[1]}}, +{@{["Content-Type" => "text/html; charset=UTF-8", "Content-Length" => 3, "X-Slug" => "OK"]}};
+is_deeply $app->[2], ["ok!"];
 
 done_testing;
