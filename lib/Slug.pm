@@ -14,7 +14,7 @@ use Slug::Util::Accessor {
     view              => "",
 };
 
-our $VERSION = '0.12';
+our $VERSION = '0.13';
 
 {
     my $CONTEXT;
