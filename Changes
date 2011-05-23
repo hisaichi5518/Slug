@@ -1,4 +1,4 @@
-0.12 2011 5-23 00:00:00
+0.12 2011-5-23 00:00:00
     - _deprecatedでshiftを使ってたのをやめた。
     - Routes.pm作成
     - Routes::RSimple, Routes::RMicroの変更
