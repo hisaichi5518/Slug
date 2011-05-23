@@ -3,22 +3,11 @@ use strict;
 use warnings;
 
 use parent "Router::Micro";
-use Plack::Util ();
+use Slug::Routes;
+
 sub dispatch {
     my ($self, $c) = @_;
-
-    if (my $args = $self->match($c->req->env)) {
-        $c->req->env->{'slug.routing_args'} = $args;
-
-        my $action     = $args->{action};
-        my $namespace = $args->{namespace} || $self->{namespace} || ref($c)."::Controller";
-
-        return $c->not_found if !$action || !($args->{controller});
-        return Plack::Util::load_class($args->{controller}, $namespace)->$action($c);
-    }
-    else {
-        return $c->not_found;
-    }
+    Slug::Routes->dispatch($c);
 }
 
 1;
