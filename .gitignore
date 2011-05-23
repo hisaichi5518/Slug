@@ -6,8 +6,8 @@ nytprof*
 cover_db*
 pm_to_blib
 Makefile*
-test.*
 !Makefile.PL
+test.pl
 *blib
 MYMETA.yml
 META.yml
