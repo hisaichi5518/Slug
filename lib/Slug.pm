@@ -163,7 +163,7 @@ sub stash {
 }
 sub _deprecated {
     require Carp;
-    Carp::carp(shift . " is deprecated. use ". shift . ".");
+    Carp::carp($_[0] . " is deprecated. use ". $_[1] . ".");
 }
 
 1;
