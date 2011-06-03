@@ -4,9 +4,23 @@ use warnings;
 use Test::More;
 
 {
+    package Slug::Test::View;
+    sub new {
+        my $class = shift;
+        my %args = @_ == 1 ? %{$_[0]} : @_;
+        bless {%args}, $class;
+    }
+    sub render {
+        my ($self, $path, $args) = @_;
+        die "template_path" unless $path;
+        "html";
+    }
+}
+{
     package MyApp::Web;
     use parent "Slug";
 
+    my $view = Slug::Test::View->new;
     sub startup {
         my ($self) = @_;
         $self->plugins->add_hook(template_path =>
@@ -16,13 +30,6 @@ use Test::More;
             sub {
                 my ($c, $path, $args) = @_;
                 $path eq "template_path" ? "ok.tx" : "ng.tx";
-            }
-        );
-        $self->view(
-            sub {
-                my ($path, $args) = @_;
-                die "template_path" unless $path eq "ok.tx";
-                "html"
             }
         );
         $self->plugins->add_hook(html_filter =>
@@ -50,6 +57,7 @@ use Test::More;
                 $c->res->header("X-Slug" => "OK") if $c->req->env->{'slug.hook'} eq "before";
             }
         );
+        $self->view($view);
         $self->render;
     }
 }

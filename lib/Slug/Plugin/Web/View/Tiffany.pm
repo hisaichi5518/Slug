@@ -7,7 +7,7 @@ use Tiffany;
 sub init {
     my ($self, $c, $conf) = @_;
     my $view = Tiffany->load(%$conf);
-    $c->view(sub{ $view->render(@_); });
+    $c->view($view);
 }
 
 1;
