@@ -33,8 +33,8 @@ __END__
 
 =head2 dispatch
 
-matchに渡すenvはHASHなので、Router Class はPSGIに対応している必要がある。
+$c->routes->match に渡すenvはHASHなので、Router Class はPSGIに対応している必要がある。
 
-PSGIに対応しているのは、Router::Simple, Router::Micro
+PSGIに対応しているのは、Router::Simple, Router::Micro など
 
 =cut
