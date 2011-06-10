@@ -4,6 +4,7 @@ use strict;
 use warnings;
 
 use Plack::Util;
+use Carp ();
 
 sub dispatch {
     my ($self, $c) = @_;
@@ -12,7 +13,9 @@ sub dispatch {
         $c->req->env->{'slug.routing_args'} = $args;
         my $action    = $args->{action};
         my $namespace = $args->{namespace} || $c->routes->{namespace} || ref($c)."::Controller";
-        return $c->not_found if !$action || !($args->{controller});
+
+        Carp::croak("Can't find Controller or Action!")
+            if !$action || !($args->{controller});
         return Plack::Util::load_class($args->{controller}, $namespace)->$action($c);
     }
     else {
