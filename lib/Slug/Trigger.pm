@@ -1,73 +1,23 @@
 package Slug::Trigger;
 use strict;
 use warnings;
+use Slug;
 
-sub new {
-    bless {
-        _trigger => {},
-    }, shift;
-}
+sub new { bless {}, shift }
 sub add_trigger {
-    my ($self, %args) = @_;
-    while (my ($name, $code) = each %args) {
-        $self->{_trigger}->{$name} = []
-            unless exists $self->{_trigger}->{$name};
-        push @{$self->{_trigger}->{$name}}, $code;
-    }
+    my $self = shift;
+    Slug::_deprecated("trigger->add_trigger" => '$c->plugins->add_hook');
+    Slug->context->plugins->add_hook(@_);
 }
 sub call_trigger {
-    my ($self, $name, @args) = @_;
-    my @code = $self->get_trigger_code($name);
-    for my $code (@code) {
-        $code->($self, @args);
-    }
+    my $self = shift;
+    Slug::_deprecated("trigger->call_trigger" => '$c->plugins->run_hook');
+    Slug->context->plugins->run_hook(@_);
 }
 sub get_trigger_code {
-    my ($self, $name) = @_;
-    $self->{_trigger}->{$name} = []
-        unless exists $self->{_trigger}->{$name};
-    @{$self->{_trigger}->{$name}};
+    my $self = shift;
+    Slug::_deprecated("trigger->get_trigger_code" => '$c->plugins->get_hook_codes');
+    Slug->context->plugins->get_hook_codes(@_);
 }
 1;
 __END__
-
-=encoding utf8
-
-=head1 NAME
-
-Slug::Trigger - とりがー！
-
-=head1 SYNOPSIS
-
-  use Slug::Trigger;
-  my $trigger = Slug::Trigger->new;
-  $trigger->add_trigger("test_trigger" => sub { ... });
-  $trigger->call_trigger("test_trigger" => @args);
-
-=head1 DESCRIPTION
-
-とりがー。Plack::Middleware::Hogeがあるから必要ないかなー
-
-=head1 METHOD
-
-=head2 new
-
-=head2 add_trigger
-
-=head2 call_trigger
-
-=head2 get_trigger_code
-
-=head1 AUTHOR
-
-hisaichi5518 E<lt>info[at]moe-project.comE<gt>
-
-=head1 SEE ALSO
-
-
-=head1 LICENSE
-
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
-
-=cut
