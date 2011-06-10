@@ -23,10 +23,10 @@ use Test::More;
     my $view = Slug::Test::View->new;
     sub startup {
         my ($self) = @_;
-        $self->plugins->add_hook(template_path =>
+        $self->plugins->add_hook(before_file_render =>
             sub { "template_path" }
         );
-        $self->plugins->add_hook(template_path =>
+        $self->plugins->add_hook(before_file_render =>
             sub {
                 my ($c, $path, $args) = @_;
                 $path eq "template_path" ? "ok.tx" : undef;

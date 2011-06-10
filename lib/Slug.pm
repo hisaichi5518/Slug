@@ -99,7 +99,7 @@ sub encode {
 }
 sub render {
     my ($self, $template, $args) = @_;
-    $template = $self->plugins->template_path($self, $template, $args) || $template;
+    $template = $self->plugins->before_file_render($self, $template, $args) || $template;
     my $html  = $self->view->render($template, $args);
     $self->ok($html);
 }

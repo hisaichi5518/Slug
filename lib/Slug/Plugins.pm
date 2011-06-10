@@ -21,6 +21,11 @@ sub add_hook {
         # _deprecated の為にやる
         Slug::_deprecated("html_filter" => "after_dispatch") if $name eq "html_filter";
 
+        if ($name eq "template_path") {
+            Slug::_deprecated("template_path" => "brfore_file_render");
+            $name = "before_file_render";
+        }
+
         $self->init_hook($name)
             unless exists $self->hooks->{$name};
 
@@ -50,8 +55,12 @@ sub before_dispatch {
 sub after_dispatch {
     shift->run_hook('after_dispatch', @_);
 }
+sub before_file_render {
+    shift->run_hook("before_file_render", @_);
+}
 sub template_path {
-    shift->run_hook('template_path', @_);
+    Slug::_deprecated("template_path" => "before_file_render");
+    shift->run_hook('before_file_render', @_);
 }
 sub html_filter {
     Slug::_deprecated("html_filter" => "after_dispatch");
