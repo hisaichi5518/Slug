@@ -3,24 +3,23 @@ package Slug::Routes;
 use strict;
 use warnings;
 
-use Plack::Util;
+use Plack::Util ();
 use Carp ();
 
 sub dispatch {
     my ($self, $c) = @_;
 
-    if (my $args = $c->routes->match($c->req->env)) {
-        $c->req->env->{'slug.routing_args'} = $args;
-        my $action    = $args->{action};
-        my $namespace = $args->{namespace} || $c->routes->{namespace} || ref($c)."::Controller";
+    return $c->not_found
+        unless my $args = $c->routes->match($c->req->env);
 
-        Carp::croak("Can't find Controller or Action!")
-            if !$action || !($args->{controller});
-        return Plack::Util::load_class($args->{controller}, $namespace)->$action($c);
-    }
-    else {
-        return $c->not_found;
-    }
+    $c->req->env->{'slug.routing_args'} = $args;
+    my $action    = $args->{action};
+    my $namespace = $args->{namespace} || $c->routes->{namespace} || ref($c)."::Controller";
+
+    Carp::croak("Can't find Controller or Action!")
+        if !$action || !($args->{controller});
+
+    return Plack::Util::load_class($args->{controller}, $namespace)->$action($c);
 }
 
 1;
