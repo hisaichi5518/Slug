@@ -17,6 +17,10 @@ sub init_hook {
 sub add_hook {
     my ($self, %args) = @_;
     while (my ($name, $code) = each %args) {
+
+        # _deprecated の為にやる
+        Slug::_deprecated("html_filter" => "after_dispatch") if $name eq "html_filter";
+
         $self->init_hook($name)
             unless exists $self->hooks->{$name};
 
