@@ -101,7 +101,6 @@ sub render {
     my ($self, $template, $args) = @_;
     $template = $self->plugins->template_path($self, $template, $args) || $template;
     my $html  = $self->view->render($template, $args);
-       $html  = $self->plugins->html_filter($self, $html) || $html;
     $self->ok($html);
 }
 sub ok {

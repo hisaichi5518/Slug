@@ -29,20 +29,7 @@ use Test::More;
         $self->plugins->add_hook(template_path =>
             sub {
                 my ($c, $path, $args) = @_;
-                $path eq "template_path" ? "ok.tx" : "ng.tx";
-            }
-        );
-        $self->plugins->add_hook(html_filter =>
-            sub {
-                my ($c, $html) = @_;
-                $html eq "html" ? "ok" : "ng";
-            }
-        );
-        $self->plugins->add_hook(html_filter =>
-            sub {
-                my ($c, $html) = @_;
-                die "html_filter" unless $html eq "ok";
-                "ok!";
+                $path eq "template_path" ? "ok.tx" : undef;
             }
         );
         $self->plugins->add_hook(before_dispatch =>
@@ -55,6 +42,11 @@ use Test::More;
             sub {
                 my ($c) = @_;
                 $c->res->header("X-Slug" => "OK") if $c->req->env->{'slug.hook'} eq "before";
+
+                if ($c->res->body->[0] eq "html") {
+                    $c->res->header("Content-Length" => 3);
+                    $c->res->body->[0] = "ok!";
+                }
             }
         );
         $self->view($view);

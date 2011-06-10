@@ -4,6 +4,7 @@ use strict;
 use warnings;
 
 use Plack::Util ();
+use Slug;
 
 sub new {
     bless +{hooks => {}}, shift;
@@ -49,6 +50,7 @@ sub template_path {
     shift->run_hook('template_path', @_);
 }
 sub html_filter {
+    Slug::_deprecated("html_filter" => "after_dispatch");
     shift->run_hook('html_filter', @_);
 }
 sub init_plugin {
