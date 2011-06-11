@@ -58,6 +58,9 @@ sub after_dispatch {
 sub before_file_render {
     shift->run_hook("before_file_render", @_);
 }
+sub before_action {
+    shift->run_hook("before_action", @_);
+}
 sub template_path {
     Slug::_deprecated("template_path" => "before_file_render");
     shift->run_hook('before_file_render', @_);

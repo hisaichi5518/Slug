@@ -5,7 +5,7 @@ use warnings;
 
 sub index {
     my ($self, $c) = @_;
-    $c->ok("index");
+    $c->ok($c->req->args->{index});
 }
 sub res1 {
     my ($self, $c) = @_;

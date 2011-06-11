@@ -19,6 +19,7 @@ sub dispatch {
     Carp::croak("Can't find Controller or Action!")
         if !$action || !($args->{controller});
 
+    $c->plugins->before_action($c);
     return Plack::Util::load_class($args->{controller}, $namespace)->$action($c);
 }
 
