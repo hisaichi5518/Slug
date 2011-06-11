@@ -1,7 +1,21 @@
 0.14 2011-06-03 00:00:00
+    ** このバージョンで deprecated のものは0.20で削除予定 **
+
     - $c->view; がコードリファレンスではなく、Tiffanyプロトコルに
       対応したオブジェクトを収めるようになった。
     - Viewプラグインの変更
+    - Slug/Trigger.pmの内部でもSlug/Plugins.pmを使うようにした。
+    - Slug::Routes#dispatch、Controller または Action が存在しない場合エラーを返すようにした。
+        今まで404を返していたけど、きちんとエラーを返した方がいいと考えた。
+    - Routes.pmをクリーンアップ
+    - Routes.pmのPOD更新
+    - Plguins.pmのtemplate_pathをdeprecatedに。before_file_renderを使う
+    - html_filterをdeprecatedにした.
+        render_stringとかを使うとわざわざ自分でフックしなければならないのはめんどい。
+        after_dispatchを使う。
+    - Plugins.pmをクリーンアップ
+    - before_action追加
+        after_actionはない。after_dispatchを使う
 
 0.13 2011-5-23 00:00:00
     - Changesのスタイル統一
