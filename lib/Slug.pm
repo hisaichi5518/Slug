@@ -98,9 +98,11 @@ sub encode {
     $self->encoding->encode($str);
 }
 sub render {
-    my ($self, $template, $args) = @_;
-    $template = $self->plugins->before_file_render($self, $template, $args) || $template;
-    my $html  = $self->view->render($template, $args);
+    my ($self, $path, $args) = @_;
+
+       $path = $self->plugins->before_file_render($self, $path, $args) || $path;
+    my $html = $self->view->render($path, $args);
+
     $self->ok($html);
 }
 sub ok {
